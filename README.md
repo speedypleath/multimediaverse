@@ -13,8 +13,13 @@ This is a collection of tools for creating and managing a multimedia files.
 ### Build
 
 ```bash
-go build -o build/multimediaverse multimediav
-erse
+go build -o build/multimediaverse multimediaverse
+```
+
+### Run
+
+```bash
+go run multimediaverse
 ```
 
 ### Test
