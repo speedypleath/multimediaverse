@@ -2,6 +2,12 @@
 
 This is a collection of tools for creating and managing a multimedia files.
 
+## Installation
+
+```bash
+go install
+```
+
 ## Development
 
 ### Requirements
