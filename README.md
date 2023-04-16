@@ -25,12 +25,12 @@ go run multimediaverse
 ### Test
 
 ```bash
-gocov test | gocov report
+gocov test ./...
 ```
 
 ### Coverage
 
 ```bash
-gocov test | gocov-xml > coverage/cov.xml
-gocov test | gocov-html > coverage/report.html
+gocov test ./... | gocov-xml > coverage/cov.xml
+gocov test ./... | gocov-html > coverage/report.html
 ```
