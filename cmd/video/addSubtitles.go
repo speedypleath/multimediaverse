@@ -1,11 +1,9 @@
 /*
 Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 */
-package cmd
+package video
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
@@ -21,13 +19,14 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("addSubtitles called")
-		AddSubtitles("/Users/speedypleath/Projects/multimediaverse/cmd/sample_data/video.mp4", "/Users/speedypleath/Projects/multimediaverse/cmd/sample_data/subtitles.srt", "output.mp4")
+		video_path := "/Users/speedypleath/Projects/multimediaverse/cmd/video/sample_data/video.mp4"
+		subtitles_path := "/Users/speedypleath/Projects/multimediaverse/cmd/video/sample_data/subtitles.srt"
+		AddSubtitles(video_path, subtitles_path, "output.mp4")
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(addSubtitlesCmd)
+	VideoCmd.AddCommand(addSubtitlesCmd)
 
 	// Here you will define your flags and configuration settings.
 
