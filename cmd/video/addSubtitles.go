@@ -4,6 +4,8 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package video
 
 import (
+	"testing"
+
 	"github.com/spf13/cobra"
 	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
@@ -21,7 +23,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		video_path := "/Users/speedypleath/Projects/multimediaverse/cmd/video/sample_data/video.mp4"
 		subtitles_path := "/Users/speedypleath/Projects/multimediaverse/cmd/video/sample_data/subtitles.srt"
-		AddSubtitles(video_path, subtitles_path, "output.mp4")
+		addSubtitles(video_path, subtitles_path, "output.mp4")
 	},
 }
 
@@ -39,7 +41,7 @@ func init() {
 	// addSubtitlesCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
-func AddSubtitles(videoPath string, subtitlesPath string, outputPath string) {
+func addSubtitles(videoPath string, subtitlesPath string, outputPath string) {
 	// Add subtitles to a video
 	input := ffmpeg.Input(videoPath)
 	subtitles := ffmpeg.Input(subtitlesPath)
@@ -54,4 +56,12 @@ func AddSubtitles(videoPath string, subtitlesPath string, outputPath string) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+// TODO: Test addSubtitles function
+func TestAddSubtitles(t *testing.T) {
+	video_path := "/Users/speedypleath/Projects/multimediaverse/cmd/video/sample_data/video.mp4"
+	subtitles_path := "/Users/speedypleath/Projects/multimediaverse/cmd/video/sample_data/subtitles.srt"
+	output_path := "/Users/speedypleath/Projects/multimediaverse/processing/sample_data/output.mp4"
+	addSubtitles(video_path, subtitles_path, output_path)
 }
