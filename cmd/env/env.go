@@ -4,8 +4,6 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package env
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -14,9 +12,6 @@ var EnvCmd = &cobra.Command{
 	Use:   "env",
 	Short: "Configure envirmonment variables",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("env called")
-	},
 }
 
 func init() {

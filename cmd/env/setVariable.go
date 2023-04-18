@@ -1,22 +1,19 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-*/
 package env
 
 import (
 	"fmt"
+	"testing"
 
 	"github.com/spf13/cobra"
 )
 
 // setVariableCmd represents the setVariable command
 var setVariableCmd = &cobra.Command{
-	Use:   "setVariable",
+	Use:   "setVariable [variable] [value]",
 	Short: "Set a variable in the environment",
 	Long:  ``,
-	// TODO: Add a function to set the variable
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("setVariable called")
+		setVariable(args[0], args[1])
 	},
 }
 
@@ -32,4 +29,13 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// setVariableCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+}
+
+// TODO: Add a function to set the variable
+func setVariable(variable string, value string) {
+	fmt.Println("setVariable called")
+}
+
+// TODO: Test the setVariable function
+func TestSetVariable(t *testing.T) {
 }

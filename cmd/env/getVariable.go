@@ -1,6 +1,3 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-*/
 package env
 
 import (
@@ -14,7 +11,6 @@ var getVariableCmd = &cobra.Command{
 	Use:   "getVariable",
 	Short: "Get a variable from the environment",
 	Long:  ``,
-	// TODO: Add a function to get a variable from the environment
 	Run: func(cmd *cobra.Command, args []string) {
 		getVariable()
 	},
@@ -34,6 +30,7 @@ func init() {
 	// getVariableCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
+// TODO: Add a function to get a variable from the environment
 func getVariable() {
 
 }
