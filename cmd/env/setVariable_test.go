@@ -8,10 +8,10 @@ import (
 )
 
 func Test_SetVariableLessThanTwoArguments(t *testing.T) {
-	root := &cobra.Command{Use: "setVariable", RunE: setVariableRunE}
+	cmd := &cobra.Command{Use: "setVariable", RunE: setVariableRunE}
 
 	os.Args = []string{"setVariable", "test"}
-	err := root.Execute()
+	err := cmd.Execute()
 
 	if err == nil {
 		t.Errorf("getVariableRunE should have returned an error")
@@ -19,10 +19,10 @@ func Test_SetVariableLessThanTwoArguments(t *testing.T) {
 }
 
 func Test_SetVariableMoreThanTwoArguments(t *testing.T) {
-	root := &cobra.Command{Use: "setVariable", RunE: setVariableRunE}
+	cmd := &cobra.Command{Use: "setVariable", RunE: setVariableRunE}
 
 	os.Args = []string{"setVariable", "test", "test", "test"}
-	err := root.Execute()
+	err := cmd.Execute()
 
 	if err == nil {
 		t.Errorf("getVariableRunE should have returned an error")
@@ -30,10 +30,10 @@ func Test_SetVariableMoreThanTwoArguments(t *testing.T) {
 }
 
 func Test_SetVariableTwoArguments(t *testing.T) {
-	root := &cobra.Command{Use: "setVariable", RunE: setVariableRunE}
+	cmd := &cobra.Command{Use: "setVariable", RunE: setVariableRunE}
 
 	os.Args = []string{"setVariable", "test", "test"}
-	err := root.Execute()
+	err := cmd.Execute()
 
 	if err != nil {
 		t.Errorf("getVariableRunE returned an error: %s", err)
