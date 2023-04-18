@@ -1,4 +1,4 @@
-package processing
+package cmd
 
 import "testing"
 
