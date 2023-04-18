@@ -1,8 +1,8 @@
 package env
 
 import (
+	"errors"
 	"fmt"
-	"testing"
 
 	"github.com/spf13/cobra"
 )
@@ -12,30 +12,23 @@ var setVariableCmd = &cobra.Command{
 	Use:   "setVariable [variable] [value]",
 	Short: "Set a variable in the environment",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
-		setVariable(args[0], args[1])
-	},
+	RunE:  setVariableRunE,
 }
 
 func init() {
 	EnvCmd.AddCommand(setVariableCmd)
+}
 
-	// Here you will define your flags and configuration settings.
+func setVariableRunE(cmd *cobra.Command, args []string) error {
+	if len(args) != 2 {
+		return errors.New("setVariable requires two arguments")
+	}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// setVariableCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// setVariableCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	setVariable(args[0], args[1])
+	return nil
 }
 
 // TODO: Add a function to set the variable
 func setVariable(variable string, value string) {
 	fmt.Println("setVariable called")
-}
-
-// TODO: Test the setVariable function
-func TestSetVariable(t *testing.T) {
 }

@@ -1,10 +1,7 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-*/
 package video
 
 import (
-	"os"
+	"errors"
 	"testing"
 
 	"github.com/spf13/cobra"
@@ -16,33 +13,7 @@ var addSubtitlesCmd = &cobra.Command{
 	Use:   "addSubtitles [flags] [video_path]",
 	Short: "Add subtitles to a video",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
-		// TODO: Handle errors
-		if len(args) == 0 {
-			cmd.Help()
-			os.Exit(0)
-		}
-
-		input_path := args[0]
-		auto_generate, _ := cmd.Flags().GetBool("autogenerate")
-
-		var subtitles_path string
-
-		if auto_generate {
-			subtitles_path = generateSubtitles(input_path)
-		} else {
-			subtitles_path, _ = cmd.Flags().GetString("subtitles")
-		}
-
-		output_path, err := cmd.Flags().GetString("output")
-
-		// TODO: FFmpeg doesn't overwrite the file if it exists
-		if err != nil || output_path == "" {
-			output_path = input_path
-		}
-
-		addSubtitles(input_path, subtitles_path, output_path)
-	},
+	RunE:  addSubtitlesRunE,
 }
 
 func init() {
@@ -55,29 +26,47 @@ func init() {
 	addSubtitlesCmd.Flags().BoolP("autogenerate", "a", false, "Automatically generate subtitles using ASR model specified in the environment variables")
 }
 
-func addSubtitles(videoPath string, subtitlesPath string, outputPath string) {
+func addSubtitlesRunE(cmd *cobra.Command, args []string) error {
+	if len(args) == 0 {
+		return errors.New("addSubtitles requires a video path")
+	}
+
+	input_path := args[0]
+	auto_generate, _ := cmd.Flags().GetBool("autogenerate")
+
+	var subtitles_path string
+
+	if auto_generate {
+		subtitles_path = generateSubtitles(input_path)
+	} else {
+		subtitles_path, err := cmd.Flags().GetString("subtitles")
+
+		if err != nil || subtitles_path == "" {
+			return errors.New("addSubtitles requires either a subtitles file path or the --autogenerate flag")
+		}
+	}
+
+	output_path, err := cmd.Flags().GetString("output")
+
+	// TODO: FFmpeg doesn't overwrite the file if it exists
+	if err != nil || output_path == "" {
+		output_path = input_path
+	}
+
+	return addSubtitles(input_path, subtitles_path, output_path)
+}
+
+func addSubtitles(videoPath string, subtitlesPath string, outputPath string) error {
 	// Add subtitles to a video
 	input := ffmpeg.Input(videoPath)
 	subtitles := ffmpeg.Input(subtitlesPath)
 
-	err := ffmpeg.
+	return ffmpeg.
 		Output([]*ffmpeg.Stream{input.Video(), input.Audio(), subtitles},
 			outputPath,
 			ffmpeg.KwArgs{"c:v": "copy", "c:a": "copy", "c:s": "mov_text"}).
 		OverWriteOutput().
 		Run()
-
-	if err != nil {
-		panic(err)
-	}
-}
-
-// TODO: Test addSubtitles function
-func TestAddSubtitles(t *testing.T) {
-	video_path := "/Users/speedypleath/Projects/multimediaverse/cmd/video/sample_data/video.mp4"
-	subtitles_path := "/Users/speedypleath/Projects/multimediaverse/cmd/video/sample_data/subtitles.srt"
-	output_path := "/Users/speedypleath/Projects/multimediaverse/processing/sample_data/output.mp4"
-	addSubtitles(video_path, subtitles_path, output_path)
 }
 
 // TODO: Create a function to generate subtitles using ASR model

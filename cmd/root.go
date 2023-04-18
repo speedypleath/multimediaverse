@@ -1,6 +1,3 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -20,9 +17,6 @@ var rootCmd = &cobra.Command{
 	Use:   "multimediaverse",
 	Short: "AI powered multimedia editing tools",
 	Long:  ``,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

@@ -1,7 +1,8 @@
 package env
 
 import (
-	"testing"
+	"errors"
+	"fmt"
 
 	"github.com/spf13/cobra"
 )
@@ -11,9 +12,7 @@ var getVariableCmd = &cobra.Command{
 	Use:   "getVariable",
 	Short: "Get a variable from the environment",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
-		getVariable()
-	},
+	RunE:  getVariableRunE,
 }
 
 func init() {
@@ -30,11 +29,16 @@ func init() {
 	// getVariableCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
-// TODO: Add a function to get a variable from the environment
-func getVariable() {
+func getVariableRunE(cmd *cobra.Command, args []string) error {
+	if len(args) != 1 {
+		return errors.New("getVariable requires one argument")
+	}
 
+	getVariable()
+	return nil
 }
 
-// TODO: Test the getVariable function
-func TestGetVariable(t *testing.T) {
+// TODO: Add a function to get a variable from the environment
+func getVariable() {
+	fmt.Println("getVariable called")
 }
