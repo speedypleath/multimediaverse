@@ -2,9 +2,9 @@ package env
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // setVariableCmd represents the setVariable command
@@ -30,5 +30,7 @@ func setVariableRunE(cmd *cobra.Command, args []string) error {
 
 // TODO: Add a function to set the variable
 func setVariable(variable string, value string) {
-	fmt.Println("setVariable called")
+	viper.Set(variable, value)
+	showEnv()
+	viper.WriteConfig()
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // getVariableCmd represents the getVariable command
@@ -34,11 +35,11 @@ func getVariableRunE(cmd *cobra.Command, args []string) error {
 		return errors.New("getVariable requires one argument")
 	}
 
-	getVariable()
+	getVariable(args[0])
 	return nil
 }
 
 // TODO: Add a function to get a variable from the environment
-func getVariable() {
-	fmt.Println("getVariable called")
+func getVariable(key string) {
+	fmt.Println(viper.Get(key))
 }

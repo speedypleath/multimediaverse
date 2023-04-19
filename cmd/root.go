@@ -58,7 +58,7 @@ func initConfig() {
 
 		// Search config in home directory with name ".multimediaverse" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigType("yaml")
+		viper.SetConfigType("json")
 		viper.SetConfigName(".multimediaverse")
 	}
 

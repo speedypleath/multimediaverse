@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var showEnvCmd = &cobra.Command{
@@ -29,5 +30,8 @@ func showEnvRunE(cmd *cobra.Command, args []string) error {
 
 // TODO: Add a function to show the environment variables
 func showEnv() {
-	fmt.Println("showEnv called")
+	keys := viper.AllKeys()
+	for _, key := range keys {
+		fmt.Printf("%s=%s \n", key, viper.GetString(key))
+	}
 }
